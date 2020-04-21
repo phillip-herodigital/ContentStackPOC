@@ -1,0 +1,10 @@
+﻿@model ContentStackPOC.Models.DemoPage
+@{ 
+    var Content = Model.Content;
+}
+<div>
+    <h2>
+        @Content.title
+    </h2>
+    @Html.Raw(Content.main_body_content)
+</div>
