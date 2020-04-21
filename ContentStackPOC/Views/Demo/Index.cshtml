@@ -1,10 +1,11 @@
 ﻿@model ContentStackPOC.Models.DemoPage
-@{ 
-    var Content = Model.Content;
+@{
+    ViewBag.Title = Model.title;
+    ViewBag.Keywords = Model.tags;
 }
-<div>
-    <h2>
-        @Content.title
-    </h2>
-    @Html.Raw(Content.main_body_content)
-</div>
+<h2>
+    @Model.title
+</h2>
+@Html.Raw(Model.main_body_content)
+
+@Html.Raw(Model.main_body_markdown)

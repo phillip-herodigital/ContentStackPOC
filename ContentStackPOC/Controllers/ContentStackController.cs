@@ -10,21 +10,23 @@ namespace ContentStackPOC.Controllers
 {
     public class ContentStackController
     {
-        private readonly ContentstackClient ContentStackClient;
-        public ContentStackController() {
-            var options = new ContentstackOptions()
-            {
-                ApiKey = "blt9f51cf96193f91b8",
-                AccessToken = "cs996c7e6b8035dae907649cca",
-                Environment = "poc_test",
-            };
-            ContentStackClient = new ContentstackClient(options);
-        }
-        public T Get<T>(string ContentType, string Entry)
+        private readonly ContentstackClient _ContentStackClient;
+        private const string _ApiKey = "blt9f51cf96193f91b8";
+        private const string _AccessToken = "cs996c7e6b8035dae907649cca";
+        private const string _Environment = "poc_test";
+        public ContentStackController()
         {
-            Entry entry = ContentStackClient.ContentType(ContentType).Entry(Entry);
-            var result = Util.AsyncUtil.RunSync(entry.Fetch<T>);
-            return result;
+            ContentstackOptions options = new ContentstackOptions()
+            {
+                ApiKey = _ApiKey,
+                AccessToken = _AccessToken,
+                Environment = _Environment,
+            };
+            _ContentStackClient = new ContentstackClient(options);
+        }
+        public Task<T> Get<T>(string ContentType, string Entry)
+        {
+            return _ContentStackClient.ContentType(ContentType).Entry(Entry).Fetch<T>();
         }
     }
 }
